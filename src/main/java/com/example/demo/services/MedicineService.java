@@ -3,6 +3,8 @@ package com.example.demo.services;
 import com.example.demo.entities.Medicine;
 import com.example.demo.repositories.IMedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -22,8 +24,8 @@ public class MedicineService {
         medicineRepository.save(medicine);
     }
 
-    public List<Medicine> listMedicine() {
-        return medicineRepository.findAll();
+    public Page<Medicine> listMedicine(Pageable pageable) {
+        return medicineRepository.findAll(pageable);
     }
 
     public Optional<Medicine> getOne(Long id) {

@@ -3,8 +3,11 @@ package com.example.demo.services;
 import com.example.demo.entities.Sale;
 import com.example.demo.repositories.ISaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,8 +26,8 @@ public class SaleService {
         saleRepository.save(sale);
     }
 
-    public List<Sale> saleList() {
-        return saleRepository.findAll();
+    public Page<Sale> saleList(Pageable pageable) {
+        return saleRepository.findAll(pageable);
     }
 
     public Optional<Sale> getOne(Long id) {
@@ -39,7 +42,7 @@ public class SaleService {
         saleRepository.deleteById(id);
     }
 
-    public List<Sale> findByRangeDate(Date startDate, Date endDate) {
+    public List<Sale> findByRangeDate(LocalDateTime startDate, LocalDateTime endDate) {
         List<Sale> saleStartDate = saleRepository.findByCreateDate(startDate);
         List<Sale> saleEndDate = saleRepository.findByCreateDate(endDate);
 

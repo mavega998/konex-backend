@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -23,7 +22,7 @@ public class Sale {
 
     @Column(name = "createDate", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private Date createDate;
+    private LocalDateTime createDate;
 
     @Column(name = "id_medicine", nullable = false)
     private Long idMedicine;

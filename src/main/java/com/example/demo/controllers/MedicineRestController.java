@@ -3,6 +3,10 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Medicine;
 import com.example.demo.services.MedicineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +31,10 @@ public class MedicineRestController {
 
     @CrossOrigin(origins = "*")
     @GetMapping(value = "/list", headers = "Accept=application/json")
-    public List<Medicine> listMedicine() {
-        return medicineService.listMedicine();
+    public Object listMedicine(@RequestParam("page") int page, @RequestParam("size") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Medicine> medicines = medicineService.listMedicine(pageable);
+        return medicines;
     }
 
     @CrossOrigin(origins = "*")
